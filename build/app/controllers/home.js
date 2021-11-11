@@ -27,6 +27,9 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.index = function (http) {
         return http.response.send("Server is running");
     };
+    Home.prototype.greeting = function (http) {
+        return http.response.send("Hello World");
+    };
     return Home;
 }(controller_1.default));
 exports.default = Home;
