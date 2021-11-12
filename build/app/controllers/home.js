@@ -30,6 +30,15 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.greeting = function (http) {
         return http.response.send("Hello World");
     };
+    Home.prototype.user = function (http) {
+        var user = {
+            id: 1,
+            name: "Test User",
+            email: "test_user@mail.com",
+            user_name: "test_user"
+        };
+        return http.response.json(user);
+    };
     return Home;
 }(controller_1.default));
 exports.default = Home;
