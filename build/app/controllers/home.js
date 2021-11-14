@@ -39,6 +39,14 @@ var Home = /** @class */ (function (_super) {
         };
         return http.response.json(user);
     };
+    Home.prototype.book = function (http) {
+        var booking = {
+            id: 1,
+            name: "Veranda Residence Pattaya",
+            address: "Na Jomtien 4"
+        };
+        return http.response.json(booking);
+    };
     return Home;
 }(controller_1.default));
 exports.default = Home;
