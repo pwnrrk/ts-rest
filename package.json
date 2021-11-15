@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "tsc; node ./build/server.js",
+    "start": "node ./build/server.js",
+    "build": "tsc",
     "dev": "tsc -w | nodemon ./build/server.js"
   },
   "keywords": [],
