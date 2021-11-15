@@ -3,9 +3,9 @@ import {Http} from "../kernel/http";
 
 export default class Home extends Controller {
 	index(http: Http) {
-		return http.response.send("Server is running");
+		return http.response.json({ message: "Server is running" });
 	}
 	hello(http: Http) {
-		return http.response.send("Hello from TS-Rest");
+		return http.response.json({ message: "Hello from TS-Rest" });
 	}
 }

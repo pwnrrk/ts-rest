@@ -25,10 +25,10 @@ var Home = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Home.prototype.index = function (http) {
-        return http.response.send("Server is running");
+        return http.response.json({ message: "Server is running" });
     };
     Home.prototype.hello = function (http) {
-        return http.response.send("Hello from TS-Rest");
+        return http.response.json({ message: "Hello from TS-Rest" });
     };
     return Home;
 }(controller_1.default));
