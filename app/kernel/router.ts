@@ -22,7 +22,7 @@ function applyFuntion(routePath: string, method: string, functionPath: string, a
 	Routes.push(route);
 }
 
-export default class Router {
+export default class Router {	
 	static get(path: string, functionPath: string, authenticate: boolean) {
 		applyFuntion(path, "get", functionPath, authenticate);
 	}
@@ -31,5 +31,8 @@ export default class Router {
 	}
 	static put(path: string, functionPath: string, authenticate: boolean) {
 		applyFuntion(path, "put", functionPath, authenticate);
+	}
+	static delete(path: string, functionPath: string, authenticate: boolean) {
+		applyFuntion(path, "delete", functionPath, authenticate);
 	}
 }

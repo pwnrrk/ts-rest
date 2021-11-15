@@ -27,25 +27,8 @@ var Home = /** @class */ (function (_super) {
     Home.prototype.index = function (http) {
         return http.response.send("Server is running");
     };
-    Home.prototype.greeting = function (http) {
-        return http.response.send("Hello World");
-    };
-    Home.prototype.user = function (http) {
-        var user = {
-            id: 1,
-            name: "Test User",
-            email: "test_user@mail.com",
-            user_name: "test_user"
-        };
-        return http.response.json(user);
-    };
-    Home.prototype.book = function (http) {
-        var booking = {
-            id: 1,
-            name: "Veranda Residence Pattaya",
-            address: "Na Jomtien 4"
-        };
-        return http.response.json(booking);
+    Home.prototype.hello = function (http) {
+        return http.response.send("Hello from TS-Rest");
     };
     return Home;
 }(controller_1.default));

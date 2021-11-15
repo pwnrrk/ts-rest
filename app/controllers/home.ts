@@ -5,4 +5,7 @@ export default class Home extends Controller {
 	index(http: Http) {
 		return http.response.send("Server is running");
 	}
+	hello(http: Http) {
+		return http.response.send("Hello from TS-Rest");
+	}
 }

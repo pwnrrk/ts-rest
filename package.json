@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node ./build/server.js",
-    "dev": "nodemon ./build/server.js"
+    "start": "tsc; node ./build/server.js",
+    "dev": "tsc -w | nodemon ./build/server.js"
   },
   "keywords": [],
   "author": "R.Phuwanat",

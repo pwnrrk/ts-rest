@@ -27,6 +27,9 @@ var Router = /** @class */ (function () {
     Router.put = function (path, functionPath, authenticate) {
         applyFuntion(path, "put", functionPath, authenticate);
     };
+    Router.delete = function (path, functionPath, authenticate) {
+        applyFuntion(path, "delete", functionPath, authenticate);
+    };
     return Router;
 }());
 exports.default = Router;
