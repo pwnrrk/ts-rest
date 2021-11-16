@@ -18,7 +18,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var controller_1 = __importDefault(require("../kernel/controller"));
+var controller_1 = __importDefault(require("../libs/controller"));
 var Home = /** @class */ (function (_super) {
     __extends(Home, _super);
     function Home() {

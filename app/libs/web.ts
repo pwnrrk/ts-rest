@@ -2,10 +2,10 @@ import express from "express";
 import { Express } from "express";
 import process from "process";
 import bodyParser from "body-parser";
-import { Routes, Route } from "./kernel/router";
-import "../run/web.routes";
+import { Routes, Route } from "./router";
+import "../../routes/router";
 import path from "path";
-import verifiyToken from "./kernel/jwt";
+import verifiyToken from "./jwt";
 import cors from "cors";
 
 export default class Web {
@@ -28,7 +28,7 @@ export default class Web {
 					verifiyToken,
 					async (request: express.Request, response: express.Response) => {
 						const commandClass = (
-							await import(`../app/controllers/${route.classPath}.js`)
+							await import(`../controllers/${route.classPath}.js`)
 						).default;
 						const command = new commandClass();
 						command[route.functionName]({ request, response });
@@ -37,7 +37,7 @@ export default class Web {
 			} else {
 				this.instance[route.method as keyof Express](route.routePath, async (request: express.Request, response: express.Response) => {
 					const commandClass = (
-						await import(`../app/controllers/${route.classPath}.js`)
+						await import(`../controllers/${route.classPath}.js`)
 					).default;
 					const command = new commandClass();
 					command[route.functionName]({ request, response });	
