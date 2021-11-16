@@ -1,1 +1,1 @@
-export default class Controller { [key: string]:string; }
+export default class Controller { [key: string]:Function; }
