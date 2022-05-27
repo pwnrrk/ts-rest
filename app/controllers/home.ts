@@ -1,11 +1,12 @@
-import Controller from "../libs/controller";
-import { Http } from "../libs/http";
+import Controller from "../libs/interfaces/controller";
 
-export default class Home extends Controller {
-  index(http: Http) {
-    return http.response.json({ message: "Server is running" });
-  }
-  hello(http: Http) {
-    return http.response.json({ message: "Hello from TS-Rest Test" });
-  }
-}
+const Home: Controller = {
+  index(req, res) {
+    res.json({ message: "Server is running" });
+  },
+  hello(req, res) {
+    res.json({ message: "Hello from TS-Rest Test" });
+  },
+};
+
+export default Home;

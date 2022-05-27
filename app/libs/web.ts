@@ -28,11 +28,9 @@ export default class Web {
       response: express.Response
     ) => {
       try {
-        const commandClass = (
-          await import(`../controllers/${route.classPath}.js`)
-        ).default;
-        const command = new commandClass();
-        command[route.functionName]({ request, response });
+        const command = (await import(`../controllers/${route.classPath}.js`))
+          .default;
+        command[route.functionName](request, response);
       } catch (error) {
         return response.status(500).json(error);
       }
