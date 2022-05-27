@@ -6,6 +6,6 @@ export default class Home extends Controller {
     return http.response.json({ message: "Server is running" });
   }
   hello(http: Http) {
-    return http.response.json({ message: "Hello from TS-Rest" });
+    return http.response.json({ message: "Hello from TS-Rest Test" });
   }
 }
