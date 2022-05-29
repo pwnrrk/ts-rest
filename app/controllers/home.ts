@@ -1,6 +1,6 @@
 import Controller from "../libs/interfaces/controller";
 
-const Home: Controller = {
+const home: Controller = {
   index(req, res) {
     res.json({ message: "Server is running" });
   },
@@ -9,4 +9,4 @@ const Home: Controller = {
   },
 };
 
-export default Home;
+export default home;

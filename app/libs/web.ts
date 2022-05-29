@@ -1,25 +1,27 @@
 import express from "express";
-import { Express } from "express";
 import process from "process";
 import bodyParser from "body-parser";
 import { Routes, Route } from "./router";
-import "../../routes/router";
+import "../../routes/api";
 import path from "path";
 import verifiyToken from "./jwt";
 import cors from "cors";
 import morgan from "morgan";
 
 export default class Web {
-  instance: Express;
+  instance: express.Express;
   port: string;
+  router: express.IRouter;
   constructor() {
     this.instance = express();
+    this.router = express.Router();
     this.port = process.env.PORT ? process.env.PORT : "3000";
     this.instance.use(bodyParser.urlencoded({ extended: false }));
     this.instance.use(bodyParser.json());
     this.instance.use(cors());
     this.instance.use(morgan("combined"));
     this.instance.use(express.static(path.join(path.resolve(), "public")));
+    this.instance.use("/api", this.router);
     this.useRoute(Routes);
   }
   handleMethod(route: Route) {
@@ -40,16 +42,13 @@ export default class Web {
   useRoute(routes: Route[]) {
     routes.forEach((route) => {
       if (route.authenticate) {
-        this.instance[route.method as keyof Express](
-          route.routePath,
-          verifiyToken,
-          this.handleMethod(route)
-        );
+        (
+          this.router[route.method as keyof express.IRouter] as CallableFunction
+        )(route.routePath, verifiyToken, this.handleMethod(route));
       } else {
-        this.instance[route.method as keyof Express](
-          route.routePath,
-          this.handleMethod(route)
-        );
+        (
+          this.router[route.method as keyof express.IRouter] as CallableFunction
+        )(route.routePath, this.handleMethod(route));
       }
     });
   }
