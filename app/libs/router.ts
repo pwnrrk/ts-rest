@@ -1,18 +1,22 @@
 export interface Route {
   method: string;
-  routePath: string;
+  routePath: string | RegExp;
   classPath: string;
   functionName: string;
   authenticate: boolean;
+  description?: string;
 }
 
-export const Routes: Route[] = [];
+export const ApiRoutes: Route[] = [];
+export const ViewRoutes: Route[] = [];
 
 function applyFuntion(
-  routePath: string,
+  routePath: string | RegExp,
   method: string,
   functionPath: string,
-  authenticate?: boolean
+  target: Route[],
+  authenticate?: boolean,
+  description?: string
 ) {
   const splitted = functionPath.split("@");
   const classPath = splitted[0];
@@ -23,24 +27,193 @@ function applyFuntion(
     classPath,
     functionName,
     authenticate: authenticate === true,
+    description,
   };
-  Routes.push(route);
+  target.push(route);
 }
 
-export default class Router {
-  static get(path: string, functionPath: string, authenticate?: boolean) {
-    applyFuntion(path, "get", functionPath, authenticate);
-  }
-  static post(path: string, functionPath: string, authenticate?: boolean) {
-    applyFuntion(path, "post", functionPath, authenticate);
-  }
-  static put(path: string, functionPath: string, authenticate?: boolean) {
-    applyFuntion(path, "put", functionPath, authenticate);
-  }
-  static delete(path: string, functionPath: string, authenticate?: boolean) {
-    applyFuntion(path, "delete", functionPath, authenticate);
-  }
-  static patch(path: string, functionPath: string, authenticate?: boolean) {
-    applyFuntion(path, "delete", functionPath, authenticate);
-  }
-}
+export const ViewRouter = {
+  get(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "get",
+      functionPath,
+      ViewRoutes,
+      authenticate,
+      description
+    );
+  },
+  post(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "post",
+      functionPath,
+      ViewRoutes,
+      authenticate,
+      description
+    );
+  },
+  put(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "put",
+      functionPath,
+      ViewRoutes,
+      authenticate,
+      description
+    );
+  },
+  delete(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "delete",
+      functionPath,
+      ViewRoutes,
+      authenticate,
+      description
+    );
+  },
+  patch(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "delete",
+      functionPath,
+      ViewRoutes,
+      authenticate,
+      description
+    );
+  },
+  all(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "all",
+      functionPath,
+      ViewRoutes,
+      authenticate,
+      description
+    );
+  },
+};
+
+export const ApiRouter = {
+  get(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "get",
+      functionPath,
+      ApiRoutes,
+      authenticate,
+      description
+    );
+  },
+  post(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "post",
+      functionPath,
+      ApiRoutes,
+      authenticate,
+      description
+    );
+  },
+  put(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "put",
+      functionPath,
+      ApiRoutes,
+      authenticate,
+      description
+    );
+  },
+  delete(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "delete",
+      functionPath,
+      ApiRoutes,
+      authenticate,
+      description
+    );
+  },
+  patch(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "delete",
+      functionPath,
+      ApiRoutes,
+      authenticate,
+      description
+    );
+  },
+  all(
+    path: string | RegExp,
+    functionPath: string,
+    authenticate?: boolean,
+    description?: string
+  ) {
+    applyFuntion(
+      path,
+      "all",
+      functionPath,
+      ApiRoutes,
+      authenticate,
+      description
+    );
+  },
+};

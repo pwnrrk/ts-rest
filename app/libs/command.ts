@@ -11,8 +11,7 @@ export default class Command {
   }
 
   async run() {
-    const CommandClass = await this.getCommand(this.commandName);
-    const command = new CommandClass();
+    const command = await this.getCommand(this.commandName);
     command.excecute();
   }
 }

@@ -1,7 +1,9 @@
 import Command from "../libs/interfaces/command";
 
-export default class Hello implements Command {
+const hello: Command = {
   excecute() {
     console.log("Hello command");
-  }
-}
+  },
+};
+
+export default hello;

@@ -1,8 +1,9 @@
 import express from "express";
 import process from "process";
 import bodyParser from "body-parser";
-import { Routes, Route } from "./router";
+import { ApiRoutes, ViewRoutes, Route } from "./router";
 import "../../routes/api";
+import "../../routes/view";
 import path from "path";
 import verifiyToken from "./jwt";
 import cors from "cors";
@@ -11,18 +12,22 @@ import morgan from "morgan";
 export default class Web {
   instance: express.Express;
   port: string;
-  router: express.IRouter;
+  apiRouter: express.IRouter;
+  viewRouter: express.IRouter;
   constructor() {
     this.instance = express();
-    this.router = express.Router();
+    this.apiRouter = express.Router();
+    this.viewRouter = express.Router();
     this.port = process.env.PORT ? process.env.PORT : "3000";
     this.instance.use(bodyParser.urlencoded({ extended: false }));
     this.instance.use(bodyParser.json());
     this.instance.use(cors());
     this.instance.use(morgan("combined"));
     this.instance.use(express.static(path.join(path.resolve(), "public")));
-    this.instance.use("/api", this.router);
-    this.useRoute(Routes);
+    this.instance.use("/api", this.apiRouter);
+    this.instance.use("/", this.viewRouter);
+    this.useRoute(ApiRoutes, this.apiRouter);
+    this.useRoute(ViewRoutes, this.viewRouter);
   }
   handleMethod(route: Route) {
     const fun = async (
@@ -39,16 +44,19 @@ export default class Web {
     };
     return fun;
   }
-  useRoute(routes: Route[]) {
+  useRoute(routes: Route[], target: express.IRouter) {
     routes.forEach((route) => {
       if (route.authenticate) {
-        (
-          this.router[route.method as keyof express.IRouter] as CallableFunction
-        )(route.routePath, verifiyToken, this.handleMethod(route));
+        (target[route.method as keyof express.IRouter] as CallableFunction)(
+          route.routePath,
+          verifiyToken,
+          this.handleMethod(route)
+        );
       } else {
-        (
-          this.router[route.method as keyof express.IRouter] as CallableFunction
-        )(route.routePath, this.handleMethod(route));
+        (target[route.method as keyof express.IRouter] as CallableFunction)(
+          route.routePath,
+          this.handleMethod(route)
+        );
       }
     });
   }

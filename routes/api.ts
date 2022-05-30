@@ -1,4 +1,4 @@
-import Router from "../app/libs/router";
+import { ApiRouter as Router } from "../app/libs/router";
 
-Router.get("/", "home@index", false);
-Router.get("/hello", "home@hello", false);
+//General
+Router.get("/", "home@index", false, "Get server status");
